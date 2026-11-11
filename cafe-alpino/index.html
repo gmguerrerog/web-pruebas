@@ -1,0 +1,775 @@
+<meta charset="utf-8">
+<title>Café Alpino</title>
+<meta name="description" content="Cafetería de especialidad inspirada en el encanto europeo, en Zenteno 189, Santiago Centro. Espresso italiano Trucillo, té en hoja y pastelería.">
+<link rel="icon" href="assets/favicon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@400;500;600;700&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&display=swap">
+
+<style>
+/* ---------- tokens ---------- */
+:root{
+  /* paleta alpina */
+  --snow:#F2F6F8;
+  --glacier:#DDE7ED;
+  --navy:#16314F;
+  --ink:#0A1726;
+  --signal:#D12B2B;
+  --pine:#2F6B4E;
+
+  /* roles - tema claro */
+  --bg:var(--snow);
+  --surface:#FFFFFF;
+  --surface-2:var(--glacier);
+  --text:var(--ink);
+  --muted:#5B7488;
+  --line:#C6D7E1;
+  --line-soft:#DEE9EF;
+  --panel:var(--navy);
+  --panel-text:#EDF3F7;
+  --panel-muted:#9BB3C7;
+  --panel-line:#2E4B6B;
+  --accent:var(--signal);
+  --accent-ink:#FFFFFF;
+  --leader:#B9CCD8;
+  --shadow:0 1px 2px rgba(10,23,38,.05), 0 8px 24px -12px rgba(10,23,38,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#081321;
+    --surface:#0E2033;
+    --surface-2:#122940;
+    --text:#E7EFF5;
+    --muted:#92AABD;
+    --line:#22405C;
+    --line-soft:#1A3349;
+    --panel:#0D1E31;
+    --panel-text:#E7EFF5;
+    --panel-muted:#8FA8BC;
+    --panel-line:#27455F;
+    --accent:#E8524F;
+    --accent-ink:#1A0606;
+    --leader:#2A4860;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#081321;
+  --surface:#0E2033;
+  --surface-2:#122940;
+  --text:#E7EFF5;
+  --muted:#92AABD;
+  --line:#22405C;
+  --line-soft:#1A3349;
+  --panel:#0D1E31;
+  --panel-text:#E7EFF5;
+  --panel-muted:#8FA8BC;
+  --panel-line:#27455F;
+  --accent:#E8524F;
+  --accent-ink:#1A0606;
+  --leader:#2A4860;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* ---------- escala tipográfica ---------- */
+.display{
+  font-family:"Bodoni Moda","Didot","Times New Roman",serif;
+  font-weight:400;
+  line-height:1.04;
+  letter-spacing:-.015em;
+  text-wrap:balance;
+  margin:0;
+}
+.d-xl{font-size:clamp(2.75rem,7vw,5.25rem)}
+.d-lg{font-size:clamp(2rem,4.2vw,3.25rem)}
+.d-md{font-size:clamp(1.5rem,2.6vw,2.125rem)}
+
+.eyebrow{
+  font-family:"Archivo Narrow","Archivo",sans-serif;
+  font-weight:600;
+  font-size:.75rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin:0;
+}
+.eyebrow.on-panel{color:#F0A9A7}
+.lede{
+  font-size:clamp(1.0625rem,1.5vw,1.25rem);
+  line-height:1.55;
+  color:var(--muted);
+  max-width:60ch;
+  margin:0;
+}
+
+/* ---------- layout ---------- */
+.wrap{width:min(1180px,calc(100% - 2.5rem));margin-inline:auto}
+section{padding-block:clamp(3.5rem,7vw,6.5rem)}
+.stack{display:flex;flex-direction:column}
+.gap-s{gap:.75rem}.gap-m{gap:1.25rem}.gap-l{gap:2rem}.gap-xl{gap:3rem}
+
+.section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:1rem;
+  padding-bottom:1.75rem;
+  margin-bottom:2.5rem;
+  border-bottom:1px solid var(--line);
+}
+@media (min-width:860px){
+  .section-head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;gap:2.5rem}
+}
+
+/* ---------- cresta (separador) ---------- */
+.ridge{display:block;width:100%;height:clamp(28px,4vw,56px)}
+.ridge path{fill:var(--panel)}
+.ridge--up path{fill:var(--bg)}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-in{display:flex;align-items:center;gap:1.25rem;height:64px}
+.brand{display:flex;align-items:center;gap:.625rem;text-decoration:none;flex:none}
+.brand img{width:34px;height:34px;border-radius:50%}
+.brand span{
+  font-family:"Bodoni Moda",serif;font-size:1.0625rem;letter-spacing:.01em;
+}
+.nav-links{
+  display:flex;gap:1.5rem;margin-left:auto;
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  font-family:"Archivo Narrow",sans-serif;font-size:.875rem;font-weight:500;
+  letter-spacing:.04em;text-decoration:none;color:var(--muted);
+  white-space:nowrap;padding-block:.25rem;border-bottom:2px solid transparent;
+  transition:color .18s ease,border-color .18s ease;
+}
+.nav-links a:hover{color:var(--text);border-bottom-color:var(--accent)}
+.nav .btn{flex:none;margin-left:1.25rem}
+@media (max-width:900px){
+  .nav .btn{display:none}
+  .nav-links{margin-left:auto}
+}
+
+/* ---------- botones ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:"Archivo Narrow",sans-serif;font-size:.9375rem;font-weight:600;
+  letter-spacing:.04em;text-decoration:none;
+  padding:.6875rem 1.25rem;border-radius:2px;border:1.5px solid transparent;
+  transition:transform .15s ease,background .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-solid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn-solid:hover{background:transparent;color:var(--accent)}
+.btn-ghost{border-color:var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--text)}
+.btn-onpanel{border-color:var(--panel-line);color:var(--panel-text)}
+.btn-onpanel:hover{border-color:var(--panel-text);background:rgba(255,255,255,.06)}
+:where(a,button):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{background:var(--panel);color:var(--panel-text);padding-block:clamp(3rem,6vw,5rem) 0;position:relative;overflow:hidden}
+.hero-grid{display:grid;gap:clamp(2rem,4vw,3.5rem);align-items:center}
+@media (min-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,.85fr)}}
+.hero h1{color:var(--panel-text)}
+.hero .lede{color:var(--panel-muted)}
+.hero-badge{
+  width:clamp(130px,17vw,190px);height:auto;border-radius:50%;
+  box-shadow:0 0 0 1px var(--panel-line),0 18px 50px -18px rgba(0,0,0,.65);
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.5rem}
+.hero-photo{
+  position:relative;border-radius:2px;overflow:hidden;
+  box-shadow:0 24px 60px -28px rgba(0,0,0,.8);
+}
+.hero-photo img{width:100%;height:clamp(300px,42vw,470px);object-fit:cover}
+.hero-photo figcaption{
+  position:absolute;left:0;bottom:0;right:0;
+  padding:1.5rem 1rem .75rem;
+  background:linear-gradient(to top,rgba(8,19,33,.88),transparent);
+  font-family:"Archivo Narrow",sans-serif;font-size:.8125rem;letter-spacing:.06em;
+  text-transform:uppercase;color:#D7E4EC;
+}
+/* tira de datos del hero */
+.facts{
+  display:grid;gap:0;border-top:1px solid var(--panel-line);margin-top:clamp(2.5rem,5vw,4rem);
+}
+@media (min-width:720px){.facts{grid-template-columns:repeat(3,1fr)}}
+.fact{padding:1.25rem 0;border-bottom:1px solid var(--panel-line)}
+@media (min-width:720px){
+  .fact{padding:1.5rem 1.5rem;border-bottom:none;border-left:1px solid var(--panel-line)}
+  .fact:first-child{padding-left:0;border-left:none}
+}
+.fact dt{
+  font-family:"Archivo Narrow",sans-serif;font-size:.75rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:#F0A9A7;margin:0 0 .375rem
+}
+.fact dd{margin:0;font-size:1.0625rem;color:var(--panel-text);line-height:1.4}
+.fact dd a{text-decoration:none;border-bottom:1px solid var(--panel-line)}
+.fact dd a:hover{border-bottom-color:var(--panel-text)}
+
+/* ---------- pilares ---------- */
+.pillars{display:grid;gap:2rem}
+@media (min-width:760px){.pillars{grid-template-columns:repeat(3,1fr);gap:2.5rem}}
+.pillar img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;margin-bottom:1.25rem}
+.pillar h3{font-family:"Bodoni Moda",serif;font-weight:400;font-size:1.5rem;margin:0 0 .5rem;line-height:1.15}
+.pillar p{margin:0;color:var(--muted);font-size:.9375rem}
+
+/* ---------- carta ---------- */
+.menu-grid{display:grid;gap:clamp(2.5rem,5vw,4rem)}
+@media (min-width:900px){.menu-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.menu-block + .menu-block{margin-top:2.75rem}
+.menu-title{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding-bottom:.625rem;margin-bottom:1rem;border-bottom:2px solid var(--text);
+}
+.menu-title h3{
+  font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:1rem;
+  letter-spacing:.14em;text-transform:uppercase;margin:0;
+}
+.menu-title .unit{
+  font-family:"Archivo Narrow",sans-serif;font-size:.75rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+.menu-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.menu-list li{
+  display:flex;align-items:baseline;gap:.5rem;
+  padding:.4375rem 0;border-bottom:1px solid var(--line-soft);
+}
+.menu-list li:last-child{border-bottom:none}
+.menu-list .name{font-size:.9375rem}
+.menu-list .dots{
+  flex:1;min-width:1.5rem;align-self:center;height:0;
+  border-bottom:1px dotted var(--leader);
+}
+.menu-list .price{
+  font-family:"Archivo Narrow",sans-serif;font-weight:600;font-size:.9375rem;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.menu-list .price .alt{color:var(--muted);font-weight:500}
+.menu-note{
+  display:inline-flex;align-items:center;gap:.5rem;margin-top:1.75rem;
+  font-family:"Archivo Narrow",sans-serif;font-size:.8125rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+}
+.menu-note::before{content:"";width:28px;height:1.5px;background:var(--accent)}
+
+/* ---------- juego de dados ---------- */
+.dice{background:var(--panel);color:var(--panel-text)}
+.dice-grid{display:grid;gap:clamp(2rem,4vw,3.5rem);align-items:center}
+@media (min-width:880px){.dice-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1fr)}}
+.dice h2{color:var(--panel-text)}
+.dice-photo img{width:100%;border-radius:2px;box-shadow:0 24px 60px -30px rgba(0,0,0,.85)}
+.rules{list-style:none;margin:1.75rem 0 0;padding:0;display:flex;flex-direction:column}
+.rules li{
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;
+  padding:1rem 0;border-top:1px solid var(--panel-line);
+}
+.rules li:last-child{border-bottom:1px solid var(--panel-line)}
+.pip{
+  width:34px;height:34px;flex:none;border-radius:4px;
+  border:1.5px solid var(--panel-line);background:rgba(255,255,255,.04);
+  display:grid;place-items:center;
+  font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:.9375rem;
+  color:#F0A9A7;
+}
+.rules strong{display:block;font-weight:600;font-size:1rem;margin-bottom:.125rem}
+.rules span{color:var(--panel-muted);font-size:.9375rem}
+
+/* ---------- banquetería ---------- */
+.feast-grid{display:grid;gap:clamp(2rem,4vw,3.5rem)}
+@media (min-width:920px){.feast-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}}
+.feast-photo img{width:100%;border-radius:2px;box-shadow:var(--shadow)}
+.feast-cols{display:grid;gap:2rem}
+@media (min-width:560px){.feast-cols{grid-template-columns:1fr 1fr}}
+.min-order{
+  margin-top:2rem;padding:1rem 1.25rem;border-left:3px solid var(--accent);
+  background:var(--surface-2);font-size:.9375rem;color:var(--muted);
+}
+.min-order strong{color:var(--text);font-weight:600}
+
+/* ---------- club ---------- */
+.club{background:var(--surface-2)}
+.club-grid{display:grid;gap:clamp(2rem,4vw,3rem)}
+@media (min-width:880px){.club-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.points{display:grid;gap:0;margin-top:.5rem}
+.point{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1.25rem;align-items:baseline;padding:1.125rem 0;border-bottom:1px solid var(--line)}
+.point:first-child{border-top:1px solid var(--line)}
+.point b{
+  font-family:"Bodoni Moda",serif;font-weight:500;font-size:2rem;line-height:1;
+  color:var(--accent);font-variant-numeric:tabular-nums;
+}
+.point span{font-size:.9375rem;color:var(--muted)}
+.point span em{font-style:normal;color:var(--text);font-weight:500}
+.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:1.25rem}
+.steps li{counter-increment:s;display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);
+  font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:.8125rem;
+  letter-spacing:.08em;color:var(--accent);padding-top:.25rem;
+}
+.steps strong{display:block;font-weight:600;font-size:1rem}
+.steps span{color:var(--muted);font-size:.9375rem}
+
+/* ---------- galería ---------- */
+.gallery{display:grid;gap:.75rem;grid-template-columns:repeat(2,1fr)}
+@media (min-width:760px){.gallery{grid-template-columns:repeat(4,1fr)}}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:2px;background:var(--surface-2)}
+.gallery img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.gallery figure:hover img{transform:scale(1.04)}
+.gallery figcaption{
+  position:absolute;inset:auto 0 0 0;padding:1.75rem .75rem .625rem;
+  background:linear-gradient(to top,rgba(8,19,33,.85),transparent);
+  color:#DCE8F0;font-family:"Archivo Narrow",sans-serif;font-size:.75rem;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+
+/* ---------- visita ---------- */
+.visit{background:var(--panel);color:var(--panel-text)}
+.visit h2{color:var(--panel-text)}
+.visit-grid{display:grid;gap:clamp(2rem,4vw,3.5rem)}
+@media (min-width:860px){.visit-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.info{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.info>div{padding:1.125rem 0;border-bottom:1px solid var(--panel-line)}
+.info>div:first-child{border-top:1px solid var(--panel-line)}
+.info dt{
+  font-family:"Archivo Narrow",sans-serif;font-size:.75rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:#F0A9A7;margin-bottom:.25rem;
+}
+.info dd{margin:0;font-size:1.0625rem}
+.info dd small{display:block;font-size:.875rem;color:var(--panel-muted);margin-top:.125rem}
+.info a{text-decoration:none;border-bottom:1px solid var(--panel-line)}
+.info a:hover{border-bottom-color:var(--panel-text)}
+.visit-photo img{width:100%;border-radius:2px;box-shadow:0 24px 60px -30px rgba(0,0,0,.85)}
+
+/* ---------- footer ---------- */
+.foot{background:var(--panel);color:var(--panel-muted);border-top:1px solid var(--panel-line);padding-block:2.5rem}
+.foot-in{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:space-between}
+.foot a{color:var(--panel-text);text-decoration:none;border-bottom:1px solid var(--panel-line)}
+.foot a:hover{border-bottom-color:var(--panel-text)}
+.foot p{margin:0;font-size:.875rem}
+.foot-brand{display:flex;align-items:center;gap:.75rem}
+.foot-brand img{width:40px;height:40px;border-radius:50%}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .gallery figure:hover img{transform:none}
+}
+</style>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <img src="assets/logo-cafe-alpino.jpg" alt="">
+      <span>Café Alpino</span>
+    </a>
+    <nav class="nav-links" aria-label="Secciones">
+      <a href="#carta">La carta</a>
+      <a href="#dados">El juego</a>
+      <a href="#fiestas">Fiestas</a>
+      <a href="#club">Club</a>
+      <a href="#visita">Visítanos</a>
+    </nav>
+    <a class="btn btn-solid" href="#visita">Cómo llegar</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="stack gap-m">
+          <img class="hero-badge" src="assets/logo-cafe-alpino.jpg" alt="Emblema de Café Alpino: montaña alpina con cruz suiza">
+          <p class="eyebrow on-panel">Zenteno 189 · Santiago Centro</p>
+          <h1 class="display d-xl">Un refugio alpino<br>en pleno centro</h1>
+          <p class="lede">Cafetería de especialidad inspirada en el encanto europeo. Un refugio en la ciudad para los amantes del café y la gastronomía de calidad.</p>
+          <div class="hero-cta">
+            <a class="btn btn-solid" href="#carta">Ver la carta</a>
+            <a class="btn btn-onpanel" href="https://www.google.com/maps/search/?api=1&query=Zenteno+189,+Santiago+Centro,+Chile" target="_blank" rel="noopener">Cómo llegar</a>
+          </div>
+        </div>
+        <figure class="hero-photo" style="margin:0">
+          <img src="assets/foto-equipo.jpg" alt="Mesa de Café Alpino con café espresso Trucillo, cheesecake de frutos rojos y sablé de limón, bajo el emblema de la casa en la pared de madera">
+          <figcaption>Espresso italiano Trucillo · pastelería de la casa</figcaption>
+        </figure>
+      </div>
+
+      <dl class="facts">
+        <div class="fact">
+          <dt>Dirección</dt>
+          <dd><a href="https://www.google.com/maps/search/?api=1&query=Zenteno+189,+Santiago+Centro,+Chile" target="_blank" rel="noopener">Zenteno 189, Santiago Centro</a></dd>
+        </div>
+        <div class="fact">
+          <dt>Reservas y pedidos</dt>
+          <dd><a href="tel:+56961437557">+56 9 6143 7557</a></dd>
+        </div>
+        <div class="fact">
+          <dt>Síguenos</dt>
+          <dd><a href="https://instagram.com/cafealpino2026" target="_blank" rel="noopener">@cafealpino2026</a></dd>
+        </div>
+      </dl>
+    </div>
+    <svg class="ridge ridge--up" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,60 L0,44 L120,28 L205,41 L330,10 L392,26 L470,4 L560,34 L648,18 L742,38 L840,22 L938,43 L1040,26 L1130,40 L1200,30 L1200,60 Z"></path>
+    </svg>
+  </section>
+
+  <!-- ================= PILARES ================= -->
+  <section id="casa">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack gap-s">
+          <p class="eyebrow">La casa</p>
+          <h2 class="display d-lg">Lo suizo es el ánimo;<br>lo italiano, el espresso</h2>
+        </div>
+        <p class="lede">Abrimos en octubre de 2026 tras remodelar por completo el local. Madera clara, cojines con estampado alpino y una barra donde se muele cada taza al momento.</p>
+      </div>
+
+      <div class="pillars">
+        <article class="pillar">
+          <img src="assets/foto-molino.jpg" alt="Molino de café profesional marcando 035 junto a la máquina de espresso en la barra de Café Alpino">
+          <h3>Molido al momento</h3>
+          <p>Trabajamos con café italiano Trucillo <em>Gusto Bar</em>, molido taza a taza en barra. Espresso y americano desde $2.000.</p>
+        </article>
+        <article class="pillar">
+          <img src="assets/foto-salon.jpg" alt="Salón de Café Alpino con paneles de madera, cojines estampados y el emblema de la casa en la pared">
+          <h3>Un salón de montaña</h3>
+          <p>Paneles de madera, bancas con cojines florales y el emblema de la casa presidiendo el salón. Pensado para quedarse un rato.</p>
+        </article>
+        <article class="pillar">
+          <img src="assets/apertura.jpg" alt="Anuncio de apertura de Café Alpino: ya estamos abiertos en Zenteno 189, Santiago Centro">
+          <h3>Recién abiertos</h3>
+          <p>Estrenamos local en Santiago Centro con precios promocionales de apertura en toda la carta de cafetería.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CARTA ================= -->
+  <section id="carta" style="background:var(--surface);border-block:1px solid var(--line-soft)">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack gap-s">
+          <p class="eyebrow">La carta</p>
+          <h2 class="display d-lg">Café, té en hoja<br>y algo dulce</h2>
+        </div>
+        <p class="lede">Precios en pesos chilenos. Los valores de cafetería corresponden a la promoción de apertura.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div>
+          <div class="menu-block">
+            <div class="menu-title"><h3>Café</h3><span class="unit">Trucillo Gusto Bar</span></div>
+            <ul class="menu-list">
+              <li><span class="name">Espresso</span><span class="dots"></span><span class="price">$2.000</span></li>
+              <li><span class="name">Americano</span><span class="dots"></span><span class="price">$2.000</span></li>
+              <li><span class="name">Cappuccino</span><span class="dots"></span><span class="price">$2.500</span></li>
+              <li><span class="name">Cappuccino vainilla</span><span class="dots"></span><span class="price">$3.000</span></li>
+              <li><span class="name">Cappuccino caramelo</span><span class="dots"></span><span class="price">$3.000</span></li>
+              <li><span class="name">Latte vainilla</span><span class="dots"></span><span class="price">$3.500</span></li>
+              <li><span class="name">Latte caramelo</span><span class="dots"></span><span class="price">$3.500</span></li>
+              <li><span class="name">Mocha</span><span class="dots"></span><span class="price">$3.500</span></li>
+              <li><span class="name">Mocha caramelo</span><span class="dots"></span><span class="price">$3.500</span></li>
+              <li><span class="name">Iced latte</span><span class="dots"></span><span class="price">$3.500</span></li>
+              <li><span class="name">Iced latte vainilla</span><span class="dots"></span><span class="price">$3.500</span></li>
+              <li><span class="name">Affogato</span><span class="dots"></span><span class="price">$3.000</span></li>
+              <li><span class="name">Affogato caramelo</span><span class="dots"></span><span class="price">$3.000</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="menu-block">
+            <div class="menu-title"><h3>Té en hoja</h3><span class="unit">550 ml / 950 ml</span></div>
+            <ul class="menu-list">
+              <li><span class="name">English Breakfast</span><span class="dots"></span><span class="price">$3.500 <span class="alt">/ $4.500</span></span></li>
+              <li><span class="name">Great Breakfast</span><span class="dots"></span><span class="price">$3.500 <span class="alt">/ $4.500</span></span></li>
+              <li><span class="name">Maracuyá y mango</span><span class="dots"></span><span class="price">$3.500 <span class="alt">/ $4.500</span></span></li>
+              <li><span class="name">Chai masala</span><span class="dots"></span><span class="price">$3.500 <span class="alt">/ $4.500</span></span></li>
+              <li><span class="name">Rooibos orgánico</span><span class="dots"></span><span class="price">$3.500 <span class="alt">/ $4.500</span></span></li>
+              <li><span class="name">Matcha latte coco</span><span class="dots"></span><span class="price">$3.000</span></li>
+            </ul>
+          </div>
+
+          <div class="menu-block">
+            <div class="menu-title"><h3>Jugos y bebidas</h3></div>
+            <ul class="menu-list">
+              <li><span class="name">Jugo Jumex</span><span class="dots"></span><span class="price">$1.600</span></li>
+              <li><span class="name">Bebidas</span><span class="dots"></span><span class="price">$1.800</span></li>
+              <li><span class="name">Agua con gas / sin gas</span><span class="dots"></span><span class="price">$1.200</span></li>
+            </ul>
+          </div>
+
+          <p class="menu-note">Precio promocional por apertura</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= JUEGO DE DADOS ================= -->
+  <svg class="ridge" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 L0,38 L96,22 L190,40 L286,14 L370,32 L462,8 L548,30 L640,16 L736,36 L830,20 L926,38 L1022,24 L1118,40 L1200,26 L1200,60 Z"></path>
+  </svg>
+  <section id="dados" class="dice" style="padding-top:clamp(1.5rem,3vw,2.5rem)">
+    <div class="wrap">
+      <div class="dice-grid">
+        <div>
+          <p class="eyebrow on-panel">La bandeja de la suerte</p>
+          <h2 class="display d-lg" style="margin-top:.75rem">¡Si sacas 6,<br>tu cuenta es gratis!</h2>
+          <p class="lede" style="color:var(--panel-muted);margin-top:1.25rem">En cada mesa hay una bandeja de madera con dos dados. Antes de pagar, prueba suerte.</p>
+
+          <ul class="rules">
+            <li>
+              <span class="pip" aria-hidden="true">1</span>
+              <span><strong>Si vienes solo</strong><span>Lanza los dos dados. Si suman 6, tu consumo es gratis.</span></span>
+            </li>
+            <li>
+              <span class="pip" aria-hidden="true">2</span>
+              <span><strong>Mesa de dos o más</strong><span>Lanza un representante. Si suman 6, el consumo de quien lanzó es gratis.</span></span>
+            </li>
+            <li>
+              <span class="pip" aria-hidden="true">3</span>
+              <span><strong>Una sola condición</strong><span>Los dados deben caer dentro de la bandeja.</span></span>
+            </li>
+          </ul>
+        </div>
+        <figure class="dice-photo" style="margin:0">
+          <img src="assets/juego-dados.jpg" alt="Bandeja de madera grabada con el emblema de Café Alpino y dos dados, sobre una mesa con clientes celebrando">
+        </figure>
+      </div>
+    </div>
+  </section>
+  <svg class="ridge ridge--up" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 L0,30 L92,44 L186,20 L280,38 L372,12 L466,34 L558,18 L652,40 L744,24 L838,42 L932,22 L1026,38 L1120,26 L1200,42 L1200,60 Z"></path>
+  </svg>
+
+  <!-- ================= BANQUETERÍA ================= -->
+  <section id="fiestas">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack gap-s">
+          <p class="eyebrow">Navidad y Año Nuevo 2026</p>
+          <h2 class="display d-lg">Banquetería para<br>la mesa de las fiestas</h2>
+        </div>
+        <p class="lede">Junto a <strong style="color:var(--text);font-weight:600">Banquetería Keko</strong> preparamos tablas, platos de fondo y dulces por encargo. Reserva por teléfono o por Instagram.</p>
+      </div>
+
+      <div class="feast-grid">
+        <figure class="feast-photo" style="margin:0">
+          <img src="assets/banqueteria-fiestas.jpg" alt="Carta de banquetería de Navidad y Año Nuevo 2026 de Café Alpino junto a Banquetería Keko">
+        </figure>
+
+        <div>
+          <div class="feast-cols">
+            <div>
+              <div class="menu-block">
+                <div class="menu-title"><h3>Tablas</h3></div>
+                <ul class="menu-list">
+                  <li><span class="name">Para 4 a 6</span><span class="dots"></span><span class="price">$79.000</span></li>
+                  <li><span class="name">Para 6 a 8</span><span class="dots"></span><span class="price">$89.000</span></li>
+                </ul>
+                <p style="margin:.75rem 0 0;font-size:.875rem;color:var(--muted)">Quesos franceses y chilenos, fiambres artesanales, frutos secos y pan de masa madre.</p>
+              </div>
+
+              <div class="menu-block">
+                <div class="menu-title"><h3>Mariscos</h3></div>
+                <ul class="menu-list">
+                  <li><span class="name">Machas u ostiones a la parmesana <span style="color:var(--muted)">· 12 un</span></span><span class="dots"></span><span class="price">$25.000</span></li>
+                  <li><span class="name">Ceviche mixto</span><span class="dots"></span><span class="price">$52.000<span class="alt">/kg</span></span></li>
+                </ul>
+              </div>
+
+              <div class="menu-block">
+                <div class="menu-title"><h3>Acompañamientos</h3><span class="unit">500 g</span></div>
+                <ul class="menu-list">
+                  <li><span class="name">Puré de manzana</span><span class="dots"></span><span class="price">$13.000</span></li>
+                  <li><span class="name">Verduras salteadas</span><span class="dots"></span><span class="price">$13.000</span></li>
+                  <li><span class="name">Arroz estilo oriental</span><span class="dots"></span><span class="price">$13.000</span></li>
+                  <li><span class="name">Papas al romero</span><span class="dots"></span><span class="price">$13.000</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <div class="menu-block">
+                <div class="menu-title"><h3>Platos de fondo</h3><span class="unit">por kg</span></div>
+                <ul class="menu-list">
+                  <li><span class="name">Pavo en salsa gravy y castaña de cajú</span><span class="dots"></span><span class="price">$65.000</span></li>
+                  <li><span class="name">Salmón en costra de finas hierbas</span><span class="dots"></span><span class="price">$65.000</span></li>
+                  <li><span class="name">Filete en salsa de vino tinto</span><span class="dots"></span><span class="price">$65.000</span></li>
+                  <li><span class="name">Lomo de cerdo en salsa de mostaza en grano</span><span class="dots"></span><span class="price">$60.000</span></li>
+                </ul>
+              </div>
+
+              <div class="menu-block">
+                <div class="menu-title"><h3>Dulces</h3></div>
+                <ul class="menu-list">
+                  <li><span class="name">Strudel de manzana <span style="color:var(--muted)">· 6 a 8 porciones</span></span><span class="dots"></span><span class="price">$30.000</span></li>
+                  <li><span class="name">Sablé de limón <span style="color:var(--muted)">· individual</span></span><span class="dots"></span><span class="price">$4.500</span></li>
+                  <li><span class="name">Cheesecake de frutos rojos <span style="color:var(--muted)">· individual</span></span><span class="dots"></span><span class="price">$4.500</span></li>
+                  <li><span class="name">Macarrón francés surtido <span style="color:var(--muted)">· 10 un</span></span><span class="dots"></span><span class="price">$15.000</span></li>
+                </ul>
+                <p style="margin:.75rem 0 0;font-size:.875rem;color:var(--muted)">El strudel contiene nueces.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="min-order">
+            <strong>Pedido mínimo:</strong> 1 kg por variedad de proteína y 500 g por acompañamiento.
+          </p>
+
+          <div class="hero-cta" style="margin-top:1.5rem">
+            <a class="btn btn-solid" href="tel:+56961437557">Reservar: +56 9 6143 7557</a>
+            <a class="btn btn-ghost" href="https://instagram.com/cafealpino2026" target="_blank" rel="noopener">Escribir por Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLUB ================= -->
+  <section id="club" class="club">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack gap-s">
+          <p class="eyebrow">Club Buena Mesa</p>
+          <h2 class="display d-lg">Suma puntos desde<br>tu primera visita</h2>
+        </div>
+        <p class="lede">Te registras una sola vez con tu usuario de Instagram y tu teléfono. Nada más.</p>
+      </div>
+
+      <div class="club-grid">
+        <div>
+          <div class="points">
+            <div class="point"><b>+5</b><span><em>puntos por visita</em><br>Cada vez que vienes y muestras tu QR al pagar.</span></div>
+            <div class="point"><b>+1</b><span><em>punto por cada $1.000</em><br>Se suma automáticamente sobre tu consumo.</span></div>
+            <div class="point"><b>30</b><span><em>puntos y canjeas un café</em><br>Espresso o americano, por cuenta de la casa.</span></div>
+          </div>
+          <div class="hero-cta" style="margin-top:2rem">
+            <a class="btn btn-solid" href="https://club.somosbuenamesa.com/cafe-alpino-ig" target="_blank" rel="noopener">Únete al Club</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="eyebrow" style="margin-bottom:1.5rem">Cómo funciona</p>
+          <ol class="steps">
+            <li><span><strong>Te registras hoy</strong><span>Completas tus datos una sola vez, desde el enlace.</span></span></li>
+            <li><span><strong>Muestras tu QR al pagar</strong><span>El equipo registra la visita y suma tus puntos.</span></span></li>
+            <li><span><strong>Canjeas</strong><span>Desde 30 puntos, tu café va por la casa.</span></span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALERÍA ================= -->
+  <section id="galeria">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack gap-s">
+          <p class="eyebrow">El local</p>
+          <h2 class="display d-lg">De obra gruesa<br>a casa abierta</h2>
+        </div>
+        <p class="lede">Remodelamos el local entero antes de abrir. Estas son fotos de nuestro Instagram, de la obra a la primera taza.</p>
+      </div>
+
+      <div class="gallery">
+        <figure>
+          <img src="assets/remodelacion.jpg" alt="Collage de la remodelación del local de Café Alpino antes de la apertura">
+          <figcaption>La remodelación</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/foto-salon.jpg" alt="Salón de Café Alpino con paneles de madera y cojines estampados">
+          <figcaption>El salón</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/foto-molino.jpg" alt="Molino de café y máquina de espresso en la barra">
+          <figcaption>La barra</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/juego-dados.jpg" alt="Bandeja de dados de Café Alpino sobre la mesa">
+          <figcaption>La bandeja</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISITA ================= -->
+  <svg class="ridge" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 L0,40 L104,24 L198,42 L292,16 L386,34 L478,10 L572,32 L664,18 L758,38 L852,22 L946,40 L1040,26 L1134,42 L1200,28 L1200,60 Z"></path>
+  </svg>
+  <section id="visita" class="visit" style="padding-top:clamp(1.5rem,3vw,2.5rem)">
+    <div class="wrap">
+      <div class="visit-grid">
+        <div>
+          <p class="eyebrow on-panel">Visítanos</p>
+          <h2 class="display d-lg" style="margin-top:.75rem">Zenteno 189,<br>Santiago Centro</h2>
+          <p class="lede" style="color:var(--panel-muted);margin-top:1.25rem">A pasos del Paseo Bulnes. Ven a conocernos.</p>
+
+          <dl class="info" style="margin-top:2rem">
+            <div>
+              <dt>Dirección</dt>
+              <dd><a href="https://www.google.com/maps/search/?api=1&query=Zenteno+189,+Santiago+Centro,+Chile" target="_blank" rel="noopener">Zenteno 189, Santiago Centro</a><small>Región Metropolitana, Chile</small></dd>
+            </div>
+            <div>
+              <dt>Teléfono</dt>
+              <dd><a href="tel:+56961437557">+56 9 6143 7557</a><small>Reservas y pedidos de banquetería</small></dd>
+            </div>
+            <div>
+              <dt>Instagram</dt>
+              <dd><a href="https://instagram.com/cafealpino2026" target="_blank" rel="noopener">@cafealpino2026</a><small>Horarios y novedades del día</small></dd>
+            </div>
+            <!-- EDITAR: confirmar horario de atención con el cliente y reemplazar la línea de abajo -->
+            <div>
+              <dt>Horario</dt>
+              <dd>Consulta el horario del día<small>Lo publicamos en las historias destacadas de Instagram.</small></dd>
+            </div>
+          </dl>
+
+          <div class="hero-cta" style="margin-top:2rem">
+            <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&query=Zenteno+189,+Santiago+Centro,+Chile" target="_blank" rel="noopener">Abrir en Google Maps</a>
+          </div>
+        </div>
+
+        <figure class="visit-photo" style="margin:0">
+          <img src="assets/carta-impresa.jpg" alt="Carta impresa de Café Alpino con los precios de cafetería, té en hoja, jugos y bebidas">
+          <figcaption style="margin-top:.75rem;font-family:'Archivo Narrow',sans-serif;font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;color:var(--panel-muted)">Nuestra carta, tal como la encuentras en el local</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <img src="assets/logo-cafe-alpino.jpg" alt="">
+      <p>Café Alpino · Zenteno 189, Santiago Centro</p>
+    </div>
+    <p>
+      <a href="https://instagram.com/cafealpino2026" target="_blank" rel="noopener">@cafealpino2026</a>
+      · <a href="tel:+56961437557">+56 9 6143 7557</a>
+    </p>
+  </div>
+</footer>
